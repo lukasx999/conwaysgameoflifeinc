@@ -11,8 +11,8 @@
 
 #define RECT_COLOR BLUE
 #define RECT_SIZE 5
-#define SCREEN_WIDTH  1000
-#define SCREEN_HEIGHT 1000
+#define SCREEN_WIDTH  1820
+#define SCREEN_HEIGHT 980
 
 #define CELLS_WIDTH SCREEN_WIDTH/RECT_SIZE
 #define CELLS_HEIGHT SCREEN_HEIGHT/RECT_SIZE
@@ -123,11 +123,9 @@ void render_grid(grid_t grid) {
     }
 }
 
-int main(void) {
+void fill_new(grid_t grid) {
+    memset(grid, 0, CELLS_WIDTH * CELLS_HEIGHT);
 
-    srand(time(NULL));
-
-    grid_t grid = { 0 };
     int x = CELLS_WIDTH / 2;
     int y = CELLS_HEIGHT / 2;
     grid[x  ][y  ] = 1;
@@ -135,6 +133,14 @@ int main(void) {
     grid[x-1][y+1] = 1;
     grid[x  ][y+2] = 1;
     grid[x+1][y+2] = 1;
+}
+
+int main(void) {
+
+    srand(time(NULL));
+
+    grid_t grid = { 0 };
+    fill_new(grid);
 
 
 
@@ -153,6 +159,9 @@ int main(void) {
                 grid_fill_random(grid);
             }
 
+            if (IsKeyDown(KEY_J)) {
+                fill_new(grid);
+            }
 
             render_grid(grid);
 
